@@ -1,6 +1,6 @@
 const STORAGE_SAVE_KEY = "launchdesk-v1-items";
 const STORAGE_LOAD_KEY = "launchdesk-v1-items";
-// fixed
+
 const demoChecks = [
   {
     id: 201,
@@ -91,7 +91,7 @@ const activityLog = document.getElementById("activityLog");
 let checks = loadChecks();
 let currentView = checks;
 
-form.addEventListener("submit", (event) => handleAddCheck(event));
+form.addEventListener("submit", (event) => handleAddCheck(event)); // Intentional bug: misspelled function name.
 searchInput.addEventListener("input", applyFilters);
 statusFilter.addEventListener("change", applyFilters);
 priorityFilter.addEventListener("change", applyFilters);
@@ -163,17 +163,13 @@ function applyFilters() {
   const selectedStatus = statusFilter.value;
   const selectedPriority = priorityFilter.value;
 
-  let filtered = checks.filter((check) =>
-    [
-      check.title,
-      check.category,
-      check.priority,
-      check.status,
-      check.owner,
-    ]
-      .join(" ")
-      .toLowerCase()
-      .includes(searchTerm),
+  let filtered = checks.filter(
+    (check) =>
+      check.title.toLowerCase().includes(searchTerm) ||
+      check.category.toLowerCase().includes(searchTerm) ||
+      check.priority.toLowerCase().includes(searchTerm) ||
+      check.status.toLowerCase().includes(searchTerm) ||
+      check.owner.toLowerCase().includes(searchTerm),
   );
 
   if (selectedStatus !== "All") {
@@ -244,7 +240,10 @@ function updateMetrics() {
   const criticalOpen = checks.filter(
     (check) => check.priority === "Critical" && check.status !== "Fixed",
   ).length;
-  const dueSoon = checks.filter((check) => daysUntil(check.dueDate) <= 7).length;
+  const dueSoon = checks.filter((check) => {
+    const days = daysUntil(check.dueDate);
+    return days >= 0 && days <= 7;
+  }).length;
   const score = total === 0 ? 0 : Math.round((fixed / total) * 100);
 
   totalCount.textContent = total;
