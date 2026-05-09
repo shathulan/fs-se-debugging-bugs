@@ -294,7 +294,7 @@ async function resetDemoData() {
   formMessage.textContent = "";
 
   try {
-    const response = await fetch("data/launch-seed.json"); // Intentional bug: real file is data/launch-checks.json.
+    const response = await fetch("data/launch-checks.json");
 
     if (!response.ok) {
       throw new Error(`Demo data request failed with ${response.status}`);
