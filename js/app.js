@@ -1,6 +1,6 @@
 const STORAGE_SAVE_KEY = "launchdesk-v1-items";
 const STORAGE_LOAD_KEY = "launchdesk-v1-items";
-
+// fixed
 const demoChecks = [
   {
     id: 201,
