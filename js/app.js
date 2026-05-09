@@ -132,8 +132,8 @@ function handleAddCheck(event) {
   const owner = ownerInput.value.trim() || "Unassigned";
   const dueDate = dueDateInput.value || new Date().toISOString().slice(0, 10);
 
-  if (!title && !category) {
-    // Intentional bug: validation should stop when either required field is missing.
+  if (!title || !category) {
+    // Required fields must both be provided.
     formMessage.textContent =
       "Please enter a check title and choose a category.";
     return;
