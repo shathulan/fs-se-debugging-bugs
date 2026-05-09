@@ -1,5 +1,5 @@
 const STORAGE_SAVE_KEY = "launchdesk-v1-items";
-const STORAGE_LOAD_KEY = "launchdesk-items-v1"; // Intentional bug: this key should match STORAGE_SAVE_KEY.
+const STORAGE_LOAD_KEY = "launchdesk-v1-items";
 
 const demoChecks = [
   {
@@ -91,7 +91,7 @@ const activityLog = document.getElementById("activityLog");
 let checks = loadChecks();
 let currentView = checks;
 
-form.addEventListener("submit", (event) => handleAddChek(event)); // Intentional bug: misspelled function name.
+form.addEventListener("submit", (event) => handleAddCheck(event));
 searchInput.addEventListener("input", applyFilters);
 statusFilter.addEventListener("change", applyFilters);
 priorityFilter.addEventListener("change", applyFilters);
