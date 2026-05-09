@@ -164,12 +164,21 @@ function applyFilters() {
   const selectedPriority = priorityFilter.value;
 
   let filtered = checks.filter((check) =>
-    check.owner.toLowerCase().includes(searchTerm),
-  ); // Intentional bug: search should include title, category, priority, status, and owner.
+    [
+      check.title,
+      check.category,
+      check.priority,
+      check.status,
+      check.owner,
+    ]
+      .join(" ")
+      .toLowerCase()
+      .includes(searchTerm),
+  );
 
   if (selectedStatus !== "All") {
-    filtered = filtered.filter((check) => check.priority === selectedStatus);
-  } // Intentional bug: status filter compares against priority.
+    filtered = filtered.filter((check) => check.status === selectedStatus);
+  }
 
   if (selectedPriority !== "All") {
     filtered = filtered.filter((check) => check.priority === selectedPriority);
